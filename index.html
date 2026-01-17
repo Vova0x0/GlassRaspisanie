@@ -1673,21 +1673,6 @@
     // Адрес зеленой темы
     const GREEN_THEME_URL = "https://mrsketh.github.io/-KCK-9--25-2/";
     
-    // Функция для плавного скрытия любой плашки
-    function hideBanner(bannerId) {
-      const banner = document.getElementById(bannerId);
-      if (banner && !banner.classList.contains('hiding')) {
-        banner.classList.add('hiding');
-        
-        // Удаляем плашку из DOM после завершения анимации
-        setTimeout(() => {
-          if (banner.parentNode) {
-            banner.style.display = 'none';
-          }
-        }, 800);
-      }
-    }
-    
     // Функция для создания падающих листьев для 1 сентября
     function createLeaves() {
       const leavesContainer = document.getElementById('leavesContainer');
@@ -2189,27 +2174,13 @@
       // Проверка праздников
       checkHolidays();
       
-      // Автоматическое скрытие приветственной плашки через 5 секунд
-      setTimeout(() => hideBanner('welcomeBanner'), 5000);
-      
-      // Добавляем обработчики кликов для всех плашек
-      ['welcomeBanner', 'sep1Banner', 'feb23Banner', 'newyearBanner', 'flagdayBanner', 'march8Banner'].forEach(bannerId => {
-        const banner = document.getElementById(bannerId);
-        if (banner) {
-          banner.addEventListener('click', function() {
-            hideBanner(bannerId);
-            // Сохраняем в localStorage, что пользователь сам закрыл плашку
-            localStorage.setItem(`${bannerId}Closed`, 'true');
-          });
+      // Автоматическое плавное скрытие приветственной плашки через 5 секунд
+      setTimeout(() => {
+        const welcomeBanner = document.getElementById('welcomeBanner');
+        if (welcomeBanner && !welcomeBanner.classList.contains('hiding')) {
+          welcomeBanner.classList.add('hiding');
         }
-      });
-      
-      // Проверяем, не закрывал ли пользователь плашки ранее
-      ['welcomeBanner', 'sep1Banner', 'feb23Banner', 'newyearBanner', 'flagdayBanner', 'march8Banner'].forEach(bannerId => {
-        if (localStorage.getItem(`${bannerId}Closed`) === 'true') {
-          hideBanner(bannerId);
-        }
-      });
+      }, 5000);
       
       // Кнопка перехода на зеленую тему
       document.getElementById('themeSwitchBtn').addEventListener('click', switchToGreenTheme);
