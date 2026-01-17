@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Расписание для КСК.9-25-2</title>
+  <title>Расписание КСК.9-25-2</title>
   
   <!-- Favicon (аватар сайта) -->
-  <link rel="icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0" type="image/jpeg">
+  <link rel="icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0">
   <link rel="apple-touch-icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0">
   
   <!-- CDN стили -->
@@ -200,7 +200,71 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    /* С 8 марта */
+    
+    /* Праздничная плашка на день рождения */
+    .birthday-banner {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      z-index: 9999;
+      background: linear-gradient(135deg,
+        rgba(255, 55, 95, 0.25),
+        rgba(255, 159, 10, 0.25)
+      );
+      backdrop-filter: var(--blur-medium);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 18px 28px;
+      box-shadow: 0 20px 60px rgba(255, 55, 95, 0.3);
+      animation: birthdayPulse 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s forwards;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: calc(100vw - 32px);
+      opacity: 0;
+    }
+    
+    .birthday-banner.show {
+      animation: birthdayShow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    
+    @keyframes birthdayShow {
+      0% { 
+        opacity: 0;
+        transform: translateX(-50%) scale(0.5); 
+      }
+      70% { 
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05); 
+      }
+      100% { 
+        opacity: 1;
+        transform: translateX(-50%) scale(1); 
+      }
+    }
+    
+    .birthday-icon {
+      font-size: 1.8rem;
+      color: #FF375F;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    
+    .birthday-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FF375F, #FF9500, #FFFFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Плашка на 8 марта */
     .march8-banner {
       position: fixed;
       top: 80px;
@@ -268,6 +332,39 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-shadow: 0 2px 10px rgba(255, 105, 180, 0.3);
+    }
+    
+    /* Конфетти - оптимизированное */
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9997;
+      overflow: hidden;
+    }
+    
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      opacity: 0;
+      animation: confettiFall 4s ease-in infinite;
+      will-change: transform, opacity;
+    }
+    
+    @keyframes confettiFall {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(0deg);
+      }
+      10% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(360deg);
+      }
     }
     
     /* Цветочные лепестки для 8 марта */
@@ -1043,7 +1140,7 @@
   <!-- Приветственная плашка -->
   <div class="welcome-banner" id="welcomeBanner">
     <i class="fas fa-hand-sparkles welcome-icon"></i>
-    <span class="welcome-text">Привет!</span>
+    <span class="welcome-text">Привет</span>
   </div>
   
   <!-- Плашка на 8 марта -->
@@ -1051,10 +1148,6 @@
     <i class="fas fa-heart march8-icon"></i>
     <span class="march8-text">С 8 марта! 💐</span>
   </div>
-  
-  <!-- Конфетти -->
-  <div class="confetti" id="confettiContainer"></div>
-  
   <!-- Лепестки для 8 марта -->
   <div class="petals" id="petalsContainer"></div>
   
@@ -1083,7 +1176,7 @@
               <div class="logo-image"></div>
             </div>
           </div>
-          <h1>Расписание для КСК.9-25-2</h1>
+          <h1>Расписание КСК.9-25-2</h1>
           <p id="currentDate">Загрузка...</p>
         </header>
         
@@ -1191,7 +1284,7 @@
 
   <script>
     // Расписание
-        const schedule = {
+    const schedule = {
       1: { // понедельник
         odd: [
           {subject: "Кл. час", room: "Актовый зал", time: "8:30-9:50"},
@@ -1282,6 +1375,7 @@
       5: "Пт",
       6: "Сб"
     };
+
     // Переменные
     let currentDay = new Date().getDay();
     let currentWeekType = isEvenWeek(new Date()) ? "even" : "odd";
@@ -1330,21 +1424,8 @@
       const month = today.getMonth(); // 0-11
       const date = today.getDate();
       
-      // День рождения - 9 ноября (месяц 10, так как январь = 0)
-      const isBirthday = month === 10 && date === 9;
-      
       // 8 марта (месяц 2, так как январь = 0)
       const isMarch8 = month === 2 && date === 8;
-      
-      // Обработка дня рождения
-      if (isBirthday) {
-        const birthdayBanner = document.getElementById('birthdayBanner');
-        birthdayBanner.classList.add('show');
-        createConfetti();
-        setInterval(createConfetti, 4000);
-      } else {
-        document.getElementById('birthdayBanner').style.display = 'none';
-      }
       
       // Обработка 8 марта
       if (isMarch8) {
