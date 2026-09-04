@@ -106,6 +106,8 @@
         #000000 100%
       );
       animation: pageLoad 0.8s ease-out;
+      display: flex;
+      justify-content: center;
     }
     
     @keyframes pageLoad {
@@ -654,7 +656,8 @@
     
     /* Основной контейнер */
     .main-container {
-      max-width: 1200px;
+      max-width: 960px;
+      width: 100%;
       margin: 100px auto 40px;
       position: relative;
       animation: contentAppear 0.8s ease-out 0.5s both;
@@ -753,7 +756,7 @@
       gap: var(--section-gap);
     }
     
-    @media (min-width: 1024px) {
+    @media (min-width: 768px) {
       .content-grid {
         grid-template-columns: 1fr 1fr;
         align-items: start;
@@ -1105,8 +1108,21 @@
       font-size: 1.2rem;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       word-break: break-word;
+    }
+    
+    .lesson-teacher {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .lesson-teacher i {
+      color: var(--ios-purple);
     }
     
     .lesson-room {
@@ -1131,64 +1147,14 @@
       color: white;
     }
     
-    /* Индикатор свайпа для мобильных */
-    .swipe-indicator {
-      position: fixed;
-      bottom: max(20px, env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: var(--blur-medium);
-      border: 1px solid var(--glass-border-light);
-      border-radius: 50px;
-      animation: swipeHint 3s ease-in-out infinite;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-    }
-    
-    .swipe-indicator.visible {
-      opacity: 1;
-    }
-    
-    @keyframes swipeHint {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-8px); }
-    }
-    
-    .swipe-text {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    
-    .swipe-arrow {
-      display: flex;
-      gap: 4px;
-    }
-    
-    .swipe-arrow i {
-      color: var(--ios-blue);
-      animation: arrowWave 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes arrowWave {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-    
     /* Футер с кнопкой переключения темы */
     .footer {
       text-align: center;
       padding: 30px 20px;
       color: var(--text-tertiary);
       font-size: 0.9rem;
-      max-width: 1200px;
+      max-width: 960px;
+      width: 100%;
       margin: 0 auto;
       border-top: 1px solid var(--glass-border-light);
       margin-top: 40px;
@@ -1437,19 +1403,6 @@
   <div class="snowflakes" id="snowflakesContainer"></div>
   <div class="petals" id="petalsContainer"></div>
   
-  <!-- Индикатор свайпа -->
-  <div class="swipe-indicator" id="swipeIndicator">
-    <div class="swipe-arrow">
-      <i class="fas fa-chevron-left"></i>
-      <i class="fas fa-chevron-left"></i>
-    </div>
-    <span class="swipe-text">Свайп для навигации</span>
-    <div class="swipe-arrow">
-      <i class="fas fa-chevron-right"></i>
-      <i class="fas fa-chevron-right"></i>
-    </div>
-  </div>
-  
   <div class="main-container">
     <div class="content-grid">
       <!-- Левый столбец -->
@@ -1569,7 +1522,7 @@
   </div>
 
   <script>
-    // Расписание
+    // Расписание с полем teacher для каждой пары
     const schedule = {
       1: { // понедельник
         odd: [
@@ -1587,15 +1540,15 @@
         odd: [
           { subject: "Основы электротехники и электронной техники", room: "А-015", teacher: "Эмерсали Н.Б.", time: "8:30-9:50" },
           { subject: "Операционные системы и среды", room: "П-208", teacher: "Шарыпова В.Е.", time: "10:00-11:20" },
-          { subject: "Информационные технологии", room: "А-301", teacher: "Арефьева Н.В.", time: "11:50-13:10" }
-          { subject: "История России", room: "А-306", teacher: "Арбузова Л.М.", time: "13:20-14:40" },
+          { subject: "Информационные технологии", room: "А-301", teacher: "Арефьева Н.В.", time: "11:50-13:10" },
+          { subject: "История России", room: "А-306", teacher: "Арбузова Л.М.", time: "13:20-14:40" }
         ],
         even: [
-          { subject: "Нет пары", room: "+", time: "8:30-9:50"},
+          { subject: "Нет пары", room: "+", teacher: "", time: "8:30-9:50"},
           { subject: "Физическая культура", room: "Спорт. зал", teacher: "Куковеров Р.Б.", time: "10:00-11:20" },
-          { subject: "Дискретная математика", room: "А-105", teacher: "Новикова Т.П.", time: "11:50-13:10" }
+          { subject: "Дискретная математика", room: "А-105", teacher: "Новикова Т.П.", time: "11:50-13:10" },
           { subject: "Элементы высшей математики", room: "А-106", teacher: "Убоженко Г.Г.", time: "13:20-14:40" },
-          { subject: "Основы электротехники и электронной техники", room: "А-015", teacher: "Эмерсали Н.Б.", time: "15:00-16:20" },
+          { subject: "Основы электротехники и электронной техники", room: "А-015", teacher: "Эмерсали Н.Б.", time: "15:00-16:20" }
         ]
       },
       3: { // среда
@@ -1605,7 +1558,7 @@
         ],
         even: [
           { subject: "Информационные технологии", room: "А-301", teacher: "Арефьева Н.В.", time: "8:30-9:50" },
-          { subject: "Основы алгоритмизации и программирования", room: "А-309", teacher: "Саквенко Т.В.", time: "10:00-11:20" }
+          { subject: "Основы алгоритмизации и программирования", room: "А-309", teacher: "Саквенко Т.В.", time: "10:00-11:20" },
           { subject: "Архитектура ЭВМ", room: "П-208", teacher: "Шарыпова В.Е.", time: "11:50-13:10" }
         ]
       },
@@ -1613,18 +1566,18 @@
         odd: [
           { subject: "Информационные технологии", room: "А-301", teacher: "Арефьева Н.В.", time: "8:30-9:50" },
           { subject: "Физическая культура", room: "Спорт. зал", teacher: "Куковеров Р.Б.", time: "10:00-11:20" },
-          { subject: "МДК.04.01. Оператор электронно-вычислительных и вычислительных машин", room: "А-303", teacher: "Фитисова Н.Н.", time: "11:50-13:10" },
+          { subject: "МДК.04.01. Оператор электронно-вычислительных и вычислительных машин", room: "А-303", teacher: "Фитисова Н.Н.", time: "11:50-13:10" }
         ],
         even: [
           { subject: "Инженерная компьютерная графика", room: "А-303", teacher: "Фитисова Н.Н.", time: "8:30-9:50" },
           { subject: "История России", room: "А-306", teacher: "Арбузова Л.М.", time: "10:00-11:20" },
-          { subject: "Основы электротехники и электронной техники", room: "А-013", teacher: "Эмерсали Н.Б.", time: "11:50-13:10" }
+          { subject: "Основы электротехники и электронной техники", room: "А-013", teacher: "Эмерсали Н.Б.", time: "11:50-13:10" },
           { subject: "Основы алгоритмизации и программирования", room: "А-309", teacher: "Саквенко Т.В.", time: "13:20-14:40" }
         ]
       },
       5: { // пятница
         odd: [
-          { subject: "Нет пары", room: "+", time: "8:30-9:50"},
+          { subject: "Нет пары", room: "+", teacher: "", time: "8:30-9:50"},
           { subject: "Иностранный язык в профессиональной деятельности", room: "А-410", teacher: "Суропа Л.А.", time: "10:00-11:20" },
           { subject: "Основы алгоритмизации и программирования", room: "А-309", teacher: "Саквенко Т.В.", time: "11:50-13:10" }
         ],
@@ -1635,15 +1588,15 @@
       },
       6: { // суббота
         odd: [
-          { subject: "Нет пары", room: "+", time: "8:30-9:50"},
+          { subject: "Нет пары", room: "+", teacher: "", time: "8:30-9:50"},
           { subject: "Архитектура ЭВМ", room: "П-208", teacher: "Шарыпова В.Е.", time: "10:00-11:20" },
           { subject: "Основы электротехники и электронной техники", room: "А-402", teacher: "Эмерсали Н.Б.", time: "11:50-13:10" },
-          { subject: "Дискретная математика", room: "А-106", teacher: "Новикова Т.П.", time: "13:20-14:40" },
+          { subject: "Дискретная математика", room: "А-106", teacher: "Новикова Т.П.", time: "13:20-14:40" }
         ],
         even: [
           { subject: "Операционные системы и среды", room: "П-208", teacher: "Шарыпова В.Е.", time: "8:30-9:50" },
           { subject: "МДК.04.01. Оператор электронно-вычислительных и вычислительных машин", room: "А-303", teacher: "Фитисова Н.Н.", time: "10:00-11:20" },
-          { subject: "Иностранный язык в профессиональной деятельности", room: "А-410", teacher: "Суропа Л.А.", time: "11:50-13:10" },
+          { subject: "Иностранный язык в профессиональной деятельности", room: "А-410", teacher: "Суропа Л.А.", time: "11:50-13:10" }
         ]
       }
     };
@@ -1660,10 +1613,6 @@
     // Переменные
     let currentDay = new Date().getDay();
     let currentWeekType = isEvenWeek(new Date()) ? "even" : "odd";
-    let isDragging = false;
-    let startX = 0;
-    let currentX = 0;
-    const threshold = 50;
     
     // Адрес зеленой темы
     const GREEN_THEME_URL = "https://mrsketh.github.io/-KCK-9--25-2/";
@@ -2115,7 +2064,6 @@
           list.innerHTML = lessons.map((lesson, i) => {
             const status = isToday ? getLessonStatus(lesson, i, lessons) : 'future';
             const timeRange = getLessonTimeRange(lesson.time);
-            const now = new Date();
             let statusText = '';
             
             if (status === 'current') {
@@ -2125,6 +2073,13 @@
               const timeToStart = getTimeRemaining(timeRange.start);
               statusText = `<div class="lesson-status">🕐 Следующая пара • До начала: ${timeToStart}</div>`;
             }
+            
+            const teacherHtml = lesson.teacher ? `
+              <div class="lesson-teacher">
+                <i class="fas fa-user-tie"></i>
+                ${lesson.teacher}
+              </div>
+            ` : '';
             
             return `
               <div class="lesson-card">
@@ -2136,6 +2091,7 @@
                   </div>
                 </div>
                 <h3 class="lesson-subject">${lesson.subject}</h3>
+                ${teacherHtml}
                 ${lesson.room ? `
                   <div class="lesson-room">
                     <i class="fas fa-map-marker-alt"></i>
@@ -2148,16 +2104,6 @@
           }).join("");
         }
       }
-    }
-
-    // Свайп
-    function handleSwipe(direction) {
-      let newDay = direction === 'right' ? currentDay - 1 : currentDay + 1;
-      
-      if (newDay < 1) newDay = 6;
-      if (newDay > 6) newDay = 1;
-      
-      renderSchedule(newDay, currentWeekType, newDay === new Date().getDay());
     }
 
     // Инициализация
@@ -2282,57 +2228,6 @@
         }, 150);
       });
       
-      // Свайп
-      const swipeIndicator = document.getElementById('swipeIndicator');
-      
-      function handleTouchStart(e) {
-        if (e.target.closest('input') || e.target.closest('button')) return;
-        
-        isDragging = true;
-        const touch = e.touches ? e.touches[0] : e;
-        startX = touch.clientX;
-        currentX = startX;
-        
-        if (!localStorage.getItem('swipeHintShown')) {
-          swipeIndicator.classList.add('visible');
-          setTimeout(() => {
-            swipeIndicator.classList.remove('visible');
-            localStorage.setItem('swipeHintShown', 'true');
-          }, 2000);
-        }
-      }
-      
-      function handleTouchEnd(e) {
-        if (!isDragging) return;
-        isDragging = false;
-        const deltaX = currentX - startX;
-        
-        if (Math.abs(deltaX) > threshold) {
-          handleSwipe(deltaX > 0 ? 'right' : 'left');
-        }
-      }
-      
-      function handleTouchMove(e) {
-        if (!isDragging) return;
-        const touch = e.touches ? e.touches[0] : e;
-        currentX = touch.clientX;
-      }
-      
-      // Обработчики свайпа
-      document.addEventListener('touchstart', handleTouchStart, { passive: true });
-      document.addEventListener('touchmove', handleTouchMove, { passive: true });
-      document.addEventListener('touchend', handleTouchEnd);
-      
-      // Мышь для десктопа
-      document.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return;
-        handleTouchStart(e);
-      });
-      
-      document.addEventListener('mousemove', handleTouchMove);
-      document.addEventListener('mouseup', handleTouchEnd);
-      document.addEventListener('mouseleave', handleTouchEnd);
-      
       // Инициализация расписания
       renderSchedule(day, weekType, true);
       
@@ -2346,17 +2241,6 @@
           renderSchedule(activeDay, currentWeekType, true);
         }
       }, 60000);
-      
-      // Индикатор свайпа
-      setTimeout(() => {
-        if (!localStorage.getItem('swipeHintShown')) {
-          swipeIndicator.classList.add('visible');
-          setTimeout(() => {
-            swipeIndicator.classList.remove('visible');
-            localStorage.setItem('swipeHintShown', 'true');
-          }, 3000);
-        }
-      }, 1000);
     });
   </script>
 </body>
