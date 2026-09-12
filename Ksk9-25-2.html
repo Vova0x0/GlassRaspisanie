@@ -117,6 +117,47 @@
       body { padding: 12px; }
     }
 
+    /* Кнопка "На главную" в левом верхнем углу */
+    .home-button {
+      position: fixed;
+      top: max(20px, env(safe-area-inset-top));
+      left: max(20px, env(safe-area-inset-left));
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      background: linear-gradient(135deg,
+        rgba(94, 92, 230, 0.35),
+        rgba(10, 132, 255, 0.35)
+      );
+      backdrop-filter: var(--blur-medium);
+      border: 1px solid var(--glass-border-medium);
+      border-radius: 16px;
+      box-shadow: var(--shadow-medium);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition-bounce);
+    }
+
+    .home-button:active {
+      transform: scale(0.95);
+    }
+
+    .home-button i {
+      font-size: 1.05rem;
+      color: var(--ios-blue);
+    }
+
+    .home-button:hover {
+      transform: translateY(-3px);
+      border-color: var(--glass-border-medium);
+      box-shadow: 0 16px 48px rgba(10, 132, 255, 0.4);
+    }
+
     /* Приветственная плашка */
     .welcome-banner {
       position: fixed;
@@ -1026,6 +1067,15 @@
         padding: 14px 22px;
         font-size: 0.95rem;
       }
+
+      /* На мобиле кнопка "На главную" — только иконка */
+      .home-button {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+      .home-button span {
+        display: none;
+      }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -1066,6 +1116,12 @@
   </style>
 </head>
 <body>
+  <!-- Кнопка "На главную" в левом верхнем углу -->
+  <a class="home-button" href="https://vova0x0.github.io/GlassRaspisanie/" title="На главную">
+    <i class="fas fa-house"></i>
+    <span>На главную</span>
+  </a>
+
   <!-- Приветственная плашка -->
   <div class="welcome-banner" id="welcomeBanner">
     <i class="fas fa-hand-sparkles welcome-icon"></i>
