@@ -968,13 +968,13 @@
       <div class="nav-title">Основное</div>
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="#" class="nav-link active" data-page="schedule">
             <i class="nav-icon fas fa-search"></i>
             <span>Расписание</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="Ads.html" class="nav-link">
+          <a href="Ads.html" class="nav-link" data-page="ads">
             <i class="nav-icon fas fa-ad"></i>
             <span>Реклама</span>
           </a>
@@ -1282,8 +1282,24 @@
         document.body.style.overflow = '';
       });
       
+      // Навигация по сайдбару
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          const page = this.getAttribute('data-page');
+          
+          // Если ссылка ведёт на другую страницу (не "#") — даём браузеру перейти
+          if (href && href !== '#') {
+            // Закрываем мобильное меню перед переходом
+            if (window.innerWidth <= 1024) {
+              sidebar.classList.remove('active');
+              overlay.classList.remove('active');
+              document.body.style.overflow = '';
+            }
+            return; // не вызываем preventDefault — браузер сам перейдёт по ссылке
+          }
+          
+          // Иначе — просто переключаем активный пункт (как было)
           e.preventDefault();
           document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
           this.classList.add('active');
