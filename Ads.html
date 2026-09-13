@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Реклама — Стеклянное расписание</title>
+
+  <link rel="icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0">
+  <link rel="apple-touch-icon" href="https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ios-green: #34C759;
+      --ios-blue: #007AFF;
+      --ios-purple: #5856D6;
+      --ios-pink: #FF375F;
+      --ios-orange: #FF9500;
+      --ios-cyan: #32ADE6;
+
+      --glass-bg-light: rgba(255, 255, 255, 0.08);
+      --glass-bg-medium: rgba(255, 255, 255, 0.12);
+      --glass-border-light: rgba(255, 255, 255, 0.15);
+      --glass-border-medium: rgba(255, 255, 255, 0.25);
+
+      --blur-medium: blur(40px);
+
+      --shadow-medium: 0 20px 60px rgba(0, 0, 0, 0.3);
+      --shadow-heavy: 0 40px 120px rgba(0, 0, 0, 0.4);
+
+      --text-primary: rgba(255, 255, 255, 0.95);
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --text-tertiary: rgba(255, 255, 255, 0.45);
+
+      --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-medium: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      --card-radius: 24px;
+      --sidebar-width: 260px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      background: #000;
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+      color: var(--text-primary);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      background: radial-gradient(ellipse at 20% 20%, rgba(10, 132, 255, 0.15) 0%, transparent 40%),
+                  radial-gradient(ellipse at 80% 80%, rgba(94, 92, 230, 0.15) 0%, transparent 40%),
+                  linear-gradient(135deg, #000000 0%, #0A1A2F 30%, #1A0F2F 70%, #000000 100%);
+      background-attachment: fixed;
+      display: flex;
+    }
+
+    /* ================= САЙДБАР ================= */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--glass-bg-light);
+      backdrop-filter: var(--blur-medium);
+      border-right: 1px solid var(--glass-border-light);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      z-index: 1000;
+      padding: 20px 0;
+    }
+
+    .logo-section {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--glass-border-light);
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background-image: url('https://sun9-84.userapi.com/s/v1/ig2/sIpw34X7TNgAeyM04lRXTy7egBdjjf1YI_1YgDxvv-9w6JzR7xPQ4B_o6RWsI5z9BgmTRw6uGbhhEUkdlrjQin-9.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0');
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .nav-section {
+      flex: 1;
+      padding: 20px 12px;
+      overflow-y: auto;
+    }
+
+    .nav-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-tertiary);
+      padding: 0 12px 12px;
+      font-weight: 600;
+    }
+
+    .nav-list { list-style: none; }
+
+    .nav-item { margin-bottom: 4px; }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 14px;
+      border-radius: 12px;
+      transition: var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      background: var(--glass-bg-medium);
+      color: var(--text-primary);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(135deg, var(--ios-green), var(--ios-cyan));
+      color: white;
+      box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+    }
+
+    .nav-icon {
+      width: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* ================= ОСНОВНОЙ КОНТЕНТ ================= */
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background: var(--glass-bg-light);
+      backdrop-filter: var(--blur-medium);
+      border-bottom: 1px solid var(--glass-border-light);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      min-height: 72px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .page-content {
+      padding: 32px;
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* ================= РЕКЛАМНЫЕ КАРТОЧКИ ================= */
+    .ad-page-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .ad-page-title i { color: var(--ios-pink); }
+
+    .ad-card {
+      background: var(--glass-bg-light);
+      backdrop-filter: var(--blur-medium);
+      border-radius: var(--card-radius);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      border: 1px solid var(--glass-border-light);
+      transition: var(--transition-medium);
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: block;
+    }
+
+    .ad-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-heavy);
+      border-color: var(--glass-border-medium);
+      background: var(--glass-bg-medium);
+    }
+
+    .ad-card:active { transform: scale(0.98); }
+
+    .ad-card .ad-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      margin-bottom: 12px;
+    }
+
+    .ad-card .ad-icon.telegram {
+      background: rgba(0, 136, 204, 0.15);
+      color: #4DC5FF;
+    }
+
+    .ad-card .ad-icon.website {
+      background: rgba(52, 199, 89, 0.15);
+      color: var(--ios-green);
+    }
+
+    .ad-card .ad-icon.vk {
+      background: rgba(74, 111, 179, 0.15);
+      color: #7BA4E8;
+    }
+
+    .ad-card .ad-icon.user {
+      background: rgba(255, 152, 0, 0.15);
+      color: var(--ios-orange);
+    }
+
+    /* ===== Логотип-картинка для FMB ===== */
+    .ad-card .ad-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      border: 1px solid var(--glass-border-light);
+      background: var(--glass-bg-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ad-card .ad-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ad-card .ad-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .ad-card .ad-description {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .ad-card .ad-link {
+      font-size: 13px;
+      color: var(--ios-cyan);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      word-break: break-all;
+    }
+
+    .ad-card .ad-link i { font-size: 12px; }
+
+    .ad-card .ad-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      margin-top: 8px;
+      border: 1px solid var(--glass-border-light);
+    }
+
+    .ad-card .ad-badge.telegram-badge {
+      background: rgba(0, 136, 204, 0.15);
+      color: #4DC5FF;
+      border-color: rgba(0, 136, 204, 0.3);
+    }
+
+    .ad-card .ad-badge.website-badge {
+      background: rgba(52, 199, 89, 0.15);
+      color: var(--ios-green);
+      border-color: rgba(52, 199, 89, 0.3);
+    }
+
+    .ad-footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--glass-border-light);
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    .ad-footer a {
+      color: var(--ios-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .ad-footer a:hover { text-decoration: underline; }
+
+    /* ================= ФУТЕР ================= */
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-tertiary);
+      font-size: 0.9rem;
+      max-width: 720px;
+      width: 100%;
+      margin: 40px auto 0;
+      border-top: 1px solid var(--glass-border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .footer-signature {
+      font-weight: 800;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+
+    .theme-section { margin-top: 10px; }
+
+    .theme-button {
+      padding: 16px 28px;
+      border: 1px solid rgba(52, 199, 89, 0.4);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(52, 199, 89, 0.3), rgba(50, 173, 230, 0.3));
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: var(--transition-bounce);
+      box-shadow: 0 8px 32px rgba(52, 199, 89, 0.2);
+      animation: themeButtonPulse 3s ease-in-out infinite;
+    }
+
+    .theme-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(52, 199, 89, 0.5);
+      border-color: rgba(52, 199, 89, 0.6);
+    }
+
+    .theme-button:active { transform: scale(0.98); }
+
+    @keyframes themeButtonPulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(52, 199, 89, 0.2); }
+      50% { box-shadow: 0 12px 40px rgba(52, 199, 89, 0.4); }
+    }
+
+    /* ================= ПРАЗДНИЧНЫЕ БАННЕРЫ ================= */
+    .welcome-banner {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      background: linear-gradient(135deg, rgba(94, 92, 230, 0.3), rgba(10, 132, 255, 0.3));
+      backdrop-filter: var(--blur-medium);
+      border: 1px solid var(--glass-border-medium);
+      border-radius: 20px;
+      padding: 14px 28px;
+      box-shadow: var(--shadow-medium);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .welcome-banner.hiding {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-100px);
+      pointer-events: none;
+    }
+
+    .welcome-icon {
+      font-size: 1.4rem;
+      color: var(--ios-purple);
+      animation: wave 2s ease-in-out infinite;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(15deg); }
+      75% { transform: rotate(-15deg); }
+    }
+
+    .welcome-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .sep1-banner, .feb23-banner, .newyear-banner, .flagday-banner, .march8-banner {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      z-index: 9998;
+      backdrop-filter: var(--blur-medium);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sep1-banner {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 165, 0, 0.25), rgba(50, 205, 50, 0.25));
+      box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3), 0 0 40px rgba(50, 205, 50, 0.2);
+    }
+
+    .feb23-banner {
+      background: linear-gradient(135deg, rgba(0, 82, 165, 0.25), rgba(200, 16, 46, 0.25));
+      box-shadow: 0 20px 60px rgba(0, 82, 165, 0.3), 0 0 40px rgba(200, 16, 46, 0.2);
+    }
+
+    .newyear-banner {
+      background: linear-gradient(135deg, rgba(29, 185, 84, 0.25), rgba(220, 53, 69, 0.25), rgba(255, 193, 7, 0.25));
+      box-shadow: 0 20px 60px rgba(29, 185, 84, 0.3), 0 0 40px rgba(220, 53, 69, 0.2);
+    }
+
+    .flagday-banner {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(0, 57, 166, 0.25), rgba(213, 43, 30, 0.25));
+      box-shadow: 0 20px 60px rgba(0, 57, 166, 0.3);
+    }
+
+    .march8-banner {
+      background: linear-gradient(135deg, rgba(255, 55, 95, 0.3), rgba(255, 105, 180, 0.3), rgba(255, 182, 193, 0.3));
+      box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4), 0 0 40px rgba(255, 182, 193, 0.3);
+    }
+
+    .sep1-banner.show, .feb23-banner.show, .newyear-banner.show, .flagday-banner.show, .march8-banner.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .sep1-icon, .feb23-icon, .newyear-icon, .flagday-icon, .march8-icon { font-size: 1.8rem; }
+    .sep1-icon {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #32CD32 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: bellRing 2s ease-in-out infinite;
+    }
+    .feb23-icon { color: #0052A5; animation: salute 2s ease-in-out infinite; }
+    .newyear-icon { color: #1DB954; animation: sparkle 1.5s ease-in-out infinite; }
+    .flagday-icon {
+      background: linear-gradient(135deg, #FFFFFF 33%, #0039A6 66%, #D52B1E 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: waveFlag 2s ease-in-out infinite;
+    }
+    .march8-icon { color: #FF69B4; animation: float 2s ease-in-out infinite; }
+
+    @keyframes bellRing {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-10deg) scale(1.1); }
+      75% { transform: rotate(10deg) scale(1.1); }
+    }
+    @keyframes salute {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-10deg) scale(1.1); }
+      75% { transform: rotate(10deg) scale(1.1); }
+    }
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+      50% { transform: scale(1.2) rotate(180deg); filter: brightness(1.5); }
+    }
+    @keyframes waveFlag {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-5px) rotate(5deg); }
+      66% { transform: translateY(3px) rotate(-5deg); }
+    }
+
+    .sep1-text, .feb23-text, .newyear-text, .flagday-text, .march8-text {
+      font-size: 1.3rem; font-weight: 800;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sep1-text { background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #32CD32 100%); }
+    .feb23-text { background: linear-gradient(135deg, #0052A5 0%, #C8102E 50%, #FFFFFF 100%); }
+    .newyear-text { background: linear-gradient(135deg, #1DB954 0%, #DC3545 33%, #FFC107 66%, #FFFFFF 100%); }
+    .flagday-text { background: linear-gradient(135deg, #FFFFFF 0%, #0039A6 50%, #D52B1E 100%); }
+    .march8-text { background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 50%, #FFFFFF 100%); }
+
+    /* ================= ЭФФЕКТЫ ================= */
+    .leaves, .snowflakes, .petals {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9996;
+      overflow: hidden;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 20px; height: 20px;
+      background: linear-gradient(135deg, #FFD700, #32CD32);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      opacity: 0;
+      animation: leafFall 10s linear infinite;
+    }
+    @keyframes leafFall {
+      0% { opacity: 0; transform: translateY(-100px) rotate(0deg); }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
+    }
+
+    .snowflake {
+      position: absolute;
+      width: 12px; height: 12px;
+      background: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0;
+      animation: snowFall 8s linear infinite;
+    }
+    @keyframes snowFall {
+      0% { opacity: 0; transform: translateY(-100px) rotate(0deg); }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
+    }
+
+    .petal {
+      position: absolute;
+      width: 15px; height: 15px;
+      background: linear-gradient(135deg, #FF69B4, #FFB6C1);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: 0;
+      animation: petalFall 8s linear infinite;
+    }
+    @keyframes petalFall {
+      0% { opacity: 0; transform: translateY(-100px) rotate(0deg); }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+
+    /* ================= МОБИЛЬНОЕ МЕНЮ ================= */
+    .mobile-menu-btn {
+      display: none;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border-light);
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-medium);
+      backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 1024px) {
+      .sidebar { transform: translateX(-100%); transition: transform var(--transition-medium); }
+      .sidebar.active { transform: translateX(0); }
+      .main-content { margin-left: 0; }
+      .mobile-menu-btn { display: flex; }
+      .overlay.active { opacity: 1; visibility: visible; }
+    }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 12px 16px; }
+      .page-content { padding: 20px 16px; }
+      .page-title { font-size: 18px; }
+      .ad-page-title { font-size: 20px; margin-bottom: 20px; }
+      .ad-card { padding: 16px 18px; }
+      .ad-card .ad-title { font-size: 16px; }
+      .ad-card .ad-icon { width: 40px; height: 40px; font-size: 20px; }
+      .ad-card .ad-logo { width: 56px; height: 56px; border-radius: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .welcome-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 12px 20px;
+      }
+      .sep1-banner, .feb23-banner, .newyear-banner, .flagday-banner, .march8-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding: 16px 20px;
+      }
+      .sep1-text, .feb23-text, .newyear-text, .flagday-text, .march8-text { font-size: 1.1rem; }
+      .page-content { padding: 16px 12px; }
+      .theme-button { padding: 14px 22px; font-size: 0.95rem; }
+      .ad-card .ad-logo { width: 50px; height: 50px; }
+    }
+
+    @supports (padding: max(0px)) {
+      .topbar {
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Праздничные баннеры -->
+  <div class="welcome-banner" id="welcomeBanner">
+    <i class="fas fa-hand-sparkles welcome-icon"></i>
+    <span class="welcome-text">Привет</span>
+  </div>
+
+  <div class="sep1-banner" id="sep1Banner">
+    <i class="fas fa-bell sep1-icon"></i>
+    <span class="sep1-text">С 1 сентября! 🎓📚</span>
+  </div>
+
+  <div class="feb23-banner" id="feb23Banner">
+    <i class="fas fa-shield-alt feb23-icon"></i>
+    <span class="feb23-text">С Днём защитника Отечества! 🇷🇺</span>
+  </div>
+
+  <div class="newyear-banner" id="newyearBanner">
+    <i class="fas fa-tree newyear-icon"></i>
+    <span class="newyear-text">С Новым годом! 🎄✨</span>
+  </div>
+
+  <div class="flagday-banner" id="flagdayBanner">
+    <i class="fas fa-flag flagday-icon"></i>
+    <span class="flagday-text">С Днём Российского флага! 🇷🇺</span>
+  </div>
+
+  <div class="march8-banner" id="march8Banner">
+    <i class="fas fa-heart march8-icon"></i>
+    <span class="march8-text">С 8 марта! 💐</span>
+  </div>
+
+  <!-- Эффекты -->
+  <div class="leaves" id="leavesContainer"></div>
+  <div class="snowflakes" id="snowflakesContainer"></div>
+  <div class="petals" id="petalsContainer"></div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Сайдбар -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-section">
+      <div class="logo-img"></div>
+      <div class="logo-text">Стеклянное расписание</div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-title">Основное</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="nav-icon fas fa-search"></i>
+            <span>Расписание</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="advertising.html" class="nav-link active">
+            <i class="nav-icon fas fa-ad"></i>
+            <span>Реклама</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Основной контент -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="page-title">Реклама</h1>
+      </div>
+    </header>
+
+    <div class="page-content">
+
+      <h1 class="ad-page-title">
+        <i class="fas fa-ad"></i> Реклама
+      </h1>
+
+      <!-- Карточка 2: ТГК Бункер для тех кто в танке -->
+      <a href="https://t.me/BruhNyaMoments" target="_blank" class="ad-card">
+        <div class="ad-icon telegram"><i class="fab fa-telegram-plane"></i></div>
+        <div class="ad-title">ТГК Бункер для тех кто в танке</div>
+        <div class="ad-description">Главный телеграм-канал этого проекта. Новости, обновления, анонсы, приколы всё это найдёте здесь</div>
+        <div class="ad-link"><i class="fas fa-external-link-alt"></i> @BruhNyaMoments</div>
+        <span class="ad-badge telegram-badge"><i class="fab fa-telegram-plane"></i> Telegram</span>
+      </a>
+
+
+      <!-- Карточка 2: ТГК КСКТОП -->
+      <a href="https://t.me/ksktopru" target="_blank" class="ad-card">
+        <div class="ad-icon telegram"><i class="fab fa-telegram-plane"></i></div>
+        <div class="ad-title">ТГК КСКТОП</div>
+        <div class="ad-description">Главный телеграм-канал проекта КСКТОП. Новости, обновления, анонсы</div>
+        <div class="ad-link"><i class="fas fa-external-link-alt"></i> @ksktopru</div>
+        <span class="ad-badge telegram-badge"><i class="fab fa-telegram-plane"></i> Telegram</span>
+      </a>
+
+      <!-- Карточка 4: FMB-OI.RU с картинкой из директории -->
+      <a href="https://fmb-oi.ru" target="_blank" class="ad-card">
+        <div class="ad-logo">
+          <img src="fmb.png" alt="FMB-OI.RU">
+        </div>
+        <div class="ad-title">Сотрудничество с FMB-OI.RU</div>
+        <div class="ad-description">Открытая соц сеть</div>
+        <div class="ad-link"><i class="fas fa-external-link-alt"></i> fmb-oi.ru</div>
+        <span class="ad-badge website-badge"><i class="fas fa-globe"></i> Сайт</span>
+      </a>
+
+    </div>
+
+    <!-- Футер -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>© 2026 Расписание занятий • Ремастер Glass version</p>
+        <p class="footer-signature">by Vova0x0</p>
+      </div>
+
+      <div class="theme-section">
+        <button class="theme-button" id="themeSwitchBtn">
+          <i class="fas fa-leaf"></i>
+          <span>Перейти на зелёную тему</span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ================= ПРАЗДНИКИ =================
+    function createLeaves() {
+      const container = document.getElementById('leavesContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 50; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.style.left = `${Math.random() * 100}%`;
+        leaf.style.animationDelay = `${Math.random() * 5}s`;
+        leaf.style.animationDuration = `${8 + Math.random() * 8}s`;
+        leaf.style.opacity = `${0.5 + Math.random() * 0.3}`;
+        container.appendChild(leaf);
+      }
+    }
+
+    function createSnowflakes() {
+      const container = document.getElementById('snowflakesContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 80; i++) {
+        const s = document.createElement('div');
+        s.className = 'snowflake';
+        s.style.left = `${Math.random() * 100}%`;
+        s.style.animationDelay = `${Math.random() * 5}s`;
+        s.style.animationDuration = `${6 + Math.random() * 6}s`;
+        s.style.opacity = `${0.5 + Math.random() * 0.3}`;
+        s.style.width = `${5 + Math.random() * 10}px`;
+        s.style.height = s.style.width;
+        container.appendChild(s);
+      }
+    }
+
+    function createPetals() {
+      const container = document.getElementById('petalsContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 60; i++) {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDelay = `${Math.random() * 5}s`;
+        p.style.animationDuration = `${6 + Math.random() * 4}s`;
+        p.style.opacity = `${0.4 + Math.random() * 0.4}`;
+        container.appendChild(p);
+      }
+    }
+
+    function checkHolidays() {
+      const today = new Date();
+      const month = today.getMonth();
+      const date = today.getDate();
+
+      const isSep1 = month === 8 && date === 1;
+      const isFeb23 = month === 1 && date === 23;
+      const isNewYear = (month === 11 && date === 31) || (month === 0 && date >= 1 && date <= 7);
+      const isFlagDay = month === 7 && date === 22;
+      const isMarch8 = month === 2 && date === 8;
+
+      if (isSep1) {
+        document.getElementById('sep1Banner').classList.add('show');
+        createLeaves();
+        document.body.style.background = `radial-gradient(ellipse at 20% 20%, rgba(255, 215, 0, 0.25) 0%, transparent 40%), radial-gradient(ellipse at 80% 80%, rgba(50, 205, 50, 0.25) 0%, transparent 40%), linear-gradient(135deg, #1A2A0A 0%, #2A1A0F 30%, #0F2A1A 70%, #000000 100%)`;
+      } else {
+        document.getElementById('sep1Banner').style.display = 'none';
+      }
+
+      if (isFeb23) {
+        document.getElementById('feb23Banner').classList.add('show');
+        document.body.style.background = `radial-gradient(ellipse at 20% 20%, rgba(0, 82, 165, 0.25) 0%, transparent 40%), radial-gradient(ellipse at 80% 80%, rgba(200, 16, 46, 0.25) 0%, transparent 40%), linear-gradient(135deg, #0A0A2A 0%, #1A0A1F 30%, #0A1A2F 70%, #000000 100%)`;
+      } else {
+        document.getElementById('feb23Banner').style.display = 'none';
+      }
+
+      if (isNewYear) {
+        document.getElementById('newyearBanner').classList.add('show');
+        createSnowflakes();
+        document.body.style.background = `radial-gradient(ellipse at 20% 20%, rgba(29, 185, 84, 0.25) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(220, 53, 69, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255, 193, 7, 0.25) 0%, transparent 40%), linear-gradient(135deg, #0A2A1A 0%, #1A0F2F 30%, #2F0A1A 70%, #000000 100%)`;
+      } else {
+        document.getElementById('newyearBanner').style.display = 'none';
+      }
+
+      if (isFlagDay) {
+        document.getElementById('flagdayBanner').classList.add('show');
+        document.body.style.background = `radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(0, 57, 166, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(213, 43, 30, 0.15) 0%, transparent 40%), linear-gradient(135deg, #000033 0%, #0A1A2F 30%, #2F0A0A 70%, #000000 100%)`;
+      } else {
+        document.getElementById('flagdayBanner').style.display = 'none';
+      }
+
+      if (isMarch8) {
+        document.getElementById('march8Banner').classList.add('show');
+        createPetals();
+        document.body.style.background = `radial-gradient(ellipse at 20% 20%, rgba(255, 105, 180, 0.25) 0%, transparent 40%), radial-gradient(ellipse at 80% 80%, rgba(255, 182, 193, 0.25) 0%, transparent 40%), linear-gradient(135deg, #1A0A14 0%, #2F0A1A 30%, #1A0F2F 70%, #000000 100%)`;
+      } else {
+        document.getElementById('march8Banner').style.display = 'none';
+      }
+    }
+
+    // ================= ПЕРЕХОД НА ЗЕЛЁНУЮ ТЕМУ =================
+    const GREEN_THEME_URL = "https://ksktop.ru/";
+
+    function switchToGreenTheme() {
+      const themeBtn = document.getElementById('themeSwitchBtn');
+      themeBtn.style.transform = 'scale(0.95)';
+
+      const transitionOverlay = document.createElement('div');
+      transitionOverlay.style.position = 'fixed';
+      transitionOverlay.style.top = '0';
+      transitionOverlay.style.left = '0';
+      transitionOverlay.style.width = '100%';
+      transitionOverlay.style.height = '100%';
+      transitionOverlay.style.background = 'linear-gradient(135deg, #34C759, #32ADE6)';
+      transitionOverlay.style.zIndex = '99999';
+      transitionOverlay.style.opacity = '0';
+      transitionOverlay.style.transition = 'opacity 0.6s ease';
+      document.body.appendChild(transitionOverlay);
+
+      setTimeout(() => { transitionOverlay.style.opacity = '1'; }, 10);
+
+      const message = document.createElement('div');
+      message.style.position = 'fixed';
+      message.style.top = '50%';
+      message.style.left = '50%';
+      message.style.transform = 'translate(-50%, -50%)';
+      message.style.zIndex = '100000';
+      message.style.color = 'white';
+      message.style.fontSize = '1.4rem';
+      message.style.fontWeight = '600';
+      message.style.textAlign = 'center';
+      message.style.opacity = '0';
+      message.style.transition = 'opacity 0.5s ease';
+      message.innerHTML = `
+        <i class="fas fa-leaf" style="font-size: 3rem; margin-bottom: 15px; display: block;"></i>
+        <div>Переход на зелёную тему...</div>
+      `;
+      document.body.appendChild(message);
+
+      setTimeout(() => { message.style.opacity = '1'; }, 300);
+
+      setTimeout(() => {
+        window.location.href = GREEN_THEME_URL;
+        setTimeout(() => {
+          themeBtn.style.transform = '';
+          transitionOverlay.style.opacity = '0';
+          message.style.opacity = '0';
+          setTimeout(() => {
+            if (transitionOverlay.parentNode) transitionOverlay.remove();
+            if (message.parentNode) message.remove();
+          }, 600);
+        }, 500);
+      }, 2000);
+    }
+
+    // ================= ИНИЦИАЛИЗАЦИЯ =================
+    document.addEventListener('DOMContentLoaded', function() {
+      checkHolidays();
+
+      setTimeout(() => {
+        const banner = document.getElementById('welcomeBanner');
+        if (banner) banner.classList.add('hiding');
+      }, 4000);
+
+      document.getElementById('themeSwitchBtn').addEventListener('click', switchToGreenTheme);
+
+      // Мобильное меню
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+      });
+
+      overlay.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+</body>
+</html>
